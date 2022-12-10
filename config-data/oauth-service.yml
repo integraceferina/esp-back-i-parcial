@@ -1,0 +1,16 @@
+server:
+  port: 9100
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+config:
+  security:
+    oauth:
+      client:
+        id: backend-specialization
+        secret: backend-dh
+      jwt:
+        key: it-s-dangerous-to-go-alone-take-this

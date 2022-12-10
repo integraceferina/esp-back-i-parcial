@@ -8,6 +8,12 @@
         <option value="$PROJECT_DIR$/api-catalog/pom.xml" />
         <option value="$PROJECT_DIR$/configServer/pom.xml" />
         <option value="$PROJECT_DIR$/eurekaServer/pom.xml" />
+        <option value="$PROJECT_DIR$/api-serie/pom.xml" />
+        <option value="$PROJECT_DIR$/SerieService/pom.xml" />
+        <option value="$PROJECT_DIR$/CatalogService/pom.xml" />
+        <option value="$PROJECT_DIR$/MovieService/pom.xml" />
+        <option value="$PROJECT_DIR$/UserService/pom.xml" />
+        <option value="$PROJECT_DIR$/OAuthService/pom.xml" />
       </list>
     </option>
   </component>

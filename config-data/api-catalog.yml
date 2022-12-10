@@ -1,21 +1,44 @@
 server:
-  port: ${PORT:${SERVER_PORT:0}}
-spring:
-  application:
-    name: api-catalog
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/movie-dev
-    username: usr-catalog
-    password: pwd-catalog
-  jpa:
-    hibernate.ddl-auto: update
-    generate-ddl: true
-    show-sql: true
+  port: ${PORT:0}
 
-  eureka:
-   client:
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceURL:
-         defaultZone: http://eureka-server:8761/eureka
+management:
+  server:
+    port: 3141
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+spring:
+  data:
+    mongodb:
+      host: ${MONGO_HOST:db-mongo}
+      port: ${MONGO_PORT:27017}
+      database: ${MONGO_DB:backend_specialization}
+      username: ${MONGO_USER:user}
+      password: ${MONGO_PASS:dhbackend}
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10 # Cantidad de solicitudes que se van a contar para determinar si el circuito está abierto o cerrado
+        failure-rate-threshold: 50 #  Porcentaje de fallos que se deben contar para abrir el circuito
+        wait-duration-in-open-state: 10s # Duración de tiempo que se espera para cerrar el circuito
+        permitted-number-of-calls-in-half-open-state: 5 # Cantidad de llamadas que se permiten en el estado de apertura del circuito -> Semi-abierto
+        slow-call-rate-threshold: 50 # Porcentaje de solicitudes que se deben contar para considerar una solicitud lenta
+        slow-call-duration-threshold: 5s # Duración de tiempo que se espera para considerar una solicitud lenta
+    instances:
+      breaker-backend:
+        base-config: default
+
+  retry:
+    instances:
+      breaker-backend:
+        waitDuration: 1000 # Duración de tiempo que se espera para volver a intentar una solicitud
+        maxAttempts: 3 # Cantidad máxima de intentos para una solicitud
+        retryExceptions: # Excepciones que se deben volver a intentar
+          - feign.FeignException$InternalServerError # InternalServerError -> 500

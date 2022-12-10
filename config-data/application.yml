@@ -1,0 +1,35 @@
+message: "[INFO] Application started -> Configuration loaded from config server"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    shutdown:
+      enabled: true
+info:
+  env:
+    enabled: true
+
+queue:
+  movie:
+    name: movie-queue
+  serie:
+    name: serie-queue
+  catalog:
+    name: catalog-queue
+
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  zipkin:
+    base-url: http://zipkin-server:9411/
+    sender:
+      type: rabbit

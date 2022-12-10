@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/api-catalog/api-catalog.iml" filepath="$PROJECT_DIR$/api-catalog/api-catalog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/api-movie/api-movie.iml" filepath="$PROJECT_DIR$/api-movie/api-movie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eurekaServer/EurekaServer.iml" filepath="$PROJECT_DIR$/eurekaServer/EurekaServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway/Gateway.iml" filepath="$PROJECT_DIR$/gateway/Gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OAuthService/OAuthService.iml" filepath="$PROJECT_DIR$/OAuthService/OAuthService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api-serie/SerieService.iml" filepath="$PROJECT_DIR$/api-serie/SerieService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserService/UserService.iml" filepath="$PROJECT_DIR$/UserService/UserService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CatalogService/api-catalog.iml" filepath="$PROJECT_DIR$/CatalogService/api-catalog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MovieService/api-movie.iml" filepath="$PROJECT_DIR$/MovieService/api-movie.iml" />
       <module fileurl="file://$PROJECT_DIR$/configServer/configServer.iml" filepath="$PROJECT_DIR$/configServer/configServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/esp-back-i-parcial.iml" filepath="$PROJECT_DIR$/.idea/esp-back-i-parcial.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eurekaServer/eurekaServer.iml" filepath="$PROJECT_DIR$/eurekaServer/eurekaServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
     </modules>
   </component>
 </project>

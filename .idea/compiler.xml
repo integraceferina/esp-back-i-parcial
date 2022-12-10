@@ -2,32 +2,46 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="api-catalog" />
+        <module name="EurekaServer" />
         <module name="api-movie" />
-        <module name="eurekaServer" />
-        <module name="gateway" />
+        <module name="OAuthService" />
+        <module name="SerieService" />
+        <module name="UserService" />
         <module name="configServer" />
+        <module name="Gateway" />
+        <module name="api-catalog" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api-catalog" target="17" />
       <module name="api-movie" target="17" />
+      <module name="CatalogService" target="17" />
       <module name="configServer" target="11" />
-      <module name="eurekaServer" target="11" />
-      <module name="gateway" target="11" />
+      <module name="EurekaServer" target="11" />
+      <module name="Gateway" target="16" />
+      <module name="MovieService" target="17" />
+      <module name="OAuthService" target="17" />
+      <module name="SerieService" target="17" />
+      <module name="UserService" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="CatalogService" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
+      <module name="MovieService" options="-parameters" />
+      <module name="OAuthService" options="-parameters" />
+      <module name="SerieService" options="-parameters" />
+      <module name="UserService" options="-parameters" />
       <module name="api-catalog" options="-parameters" />
       <module name="api-movie" options="-parameters" />
       <module name="configServer" options="-parameters" />
-      <module name="eurekaServer" options="-parameters" />
-      <module name="gateway" options="-parameters" />
     </option>
   </component>
 </project>
