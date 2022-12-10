@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/UserService/UserService.iml" filepath="$PROJECT_DIR$/UserService/UserService.iml" />
       <module fileurl="file://$PROJECT_DIR$/CatalogService/api-catalog.iml" filepath="$PROJECT_DIR$/CatalogService/api-catalog.iml" />
       <module fileurl="file://$PROJECT_DIR$/MovieService/api-movie.iml" filepath="$PROJECT_DIR$/MovieService/api-movie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SerieService/api-serie.iml" filepath="$PROJECT_DIR$/SerieService/api-serie.iml" />
       <module fileurl="file://$PROJECT_DIR$/configServer/configServer.iml" filepath="$PROJECT_DIR$/configServer/configServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/esp-back-i-parcial.iml" filepath="$PROJECT_DIR$/.idea/esp-back-i-parcial.iml" />
     </modules>

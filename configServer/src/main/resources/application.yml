@@ -15,5 +15,3 @@ server:
 
 
 
-    defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
--data

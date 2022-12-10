@@ -1,19 +1,28 @@
 package com.dh.SecurityOAuth.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
+public class SecurityConfiguration  {
 
     /* =================== Atributos =================== */
 
@@ -27,15 +36,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userService).passwordEncoder(passwordEncoder())
-                .and().authenticationEventPublisher(this.authenticationEventPublisher);
+    @Bean
+    public AuthenticationManager configure(AuthenticationConfiguration auth) throws Exception {
+        return auth.getAuthenticationManager();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.requestMatcher(EndpointRequest.toAnyEndpoint())
                 .authorizeRequests()
                 .requestMatchers(EndpointRequest.to("info","env")).authenticated()
@@ -45,25 +52,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
+        return http.build();
     }
 
     @Bean
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    /* =================== Constructores =================== */
-
-    @Autowired
-    public SecurityConfiguration(UserDetailsService usuarioService, AuthenticationEventPublisher authenticationEventPublisher) {
-        this.userService = usuarioService;
-        this.authenticationEventPublisher = authenticationEventPublisher;
-    }
-
-    public SecurityConfiguration(boolean disableDefaults, UserDetailsService userService, AuthenticationEventPublisher authenticationEventPublisher) {
-        super(disableDefaults);
-        this.userService = userService;
-        this.authenticationEventPublisher = authenticationEventPublisher;
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("*");
+            }
+        };
     }
 }

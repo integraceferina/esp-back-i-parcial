@@ -1,8 +1,8 @@
 package com.dh.catalogService.message;
 
-import com.dh.catalog.models.Movie;
-import com.dh.catalog.models.Serie;
-import com.dh.catalog.service.CatalogService;
+import com.dh.catalogService.models.Movie;
+import com.dh.catalogService.models.Serie;
+import com.dh.catalogService.service.CatalogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

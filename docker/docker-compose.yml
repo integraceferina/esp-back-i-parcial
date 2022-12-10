@@ -4,35 +4,22 @@ services: # Servicios que se van a ejecutar
   # Servicio de configuración global
   config-server:
     build:
-      context: ConfigServer/
+      context: ../configServer/
     ports:
       - "8888:8888"
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://config-server:8888/actuator/health" ]
-      interval: 5s
-      timeout: 3s
-      retries: 6
 
   # Servicio de enrutamiento de servicios
   eureka-server:
     build:
-      context: EurekaServer/
+      context: ../EurekaServer/
     ports:
       - "8761:8761"
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://eureka-server:8761/actuator/health" ]
-      interval: 5s
-      timeout: 3s
-      retries: 6
-    depends_on:
-      config-server:
-        condition: service_healthy
 
   # Servicio de base de datos MySQL
   db-mysql:
@@ -77,129 +64,54 @@ services: # Servicios que se van a ejecutar
   # Microservicio de Movies
   movie-service:
     build:
-      context: MovieService/
+      context: ../MovieService/
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://movie-service:3141/actuator/health" ]
-      interval: 6s
-      timeout: 3s
-      retries: 6
-    depends_on:
-      db-mysql:
-        condition: service_started
-      config-server:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
 
   # Microservicio de Series
   serie-service:
     build:
-      context: SerieService/
+      context: ../SerieService/
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://serie-service:3141/actuator/health" ]
-      interval: 6s
-      timeout: 3s
-      retries: 6
-    depends_on:
-      db-mongo:
-        condition: service_started
-      config-server:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
 
   # Microservicio de Catalog
   catalog-service:
     build:
-      context: CatalogService/
+      context: ../CatalogService/
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://catalog-service:3141/actuator/health" ]
-      interval: 6s
-      timeout: 3s
-      retries: 6
-    depends_on:
-      db-mongo:
-        condition: service_started
-      config-server:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_started
-      movie-service:
-        condition: service_healthy
-      serie-service:
-        condition: service_healthy
 
   # Microservicio de Users
   user-service:
     build:
-      context: UserService/
+      context: ../UserService/
     restart: always
     networks:
       - backendnetwork
-    depends_on:
-      db-mongo:
-        condition: service_started
-      config-server:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
 
   # Microservicio de autorización
   oauth-service:
     build:
-      context: SecurityOAuth/
+      context: ../OAuthService/
     ports:
       - "9100:9100"
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://oauth-service:9100/actuator/health" ]
-      interval: 5s
-      timeout: 3s
-      retries: 6
-    depends_on:
-      user-service:
-        condition: service_started
 
   # Microservicio de Gateway
   gateway:
     build:
-      context: Gateway/
+      context: ../Gateway/
     ports:
       - "8090:8090"
     restart: always
     networks:
       - backendnetwork
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://gateway:8090/actuator/health" ]
-      interval: 5s
-      timeout: 3s
-      retries: 6
-    depends_on:
-      config-server:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
-      oauth-service:
-        condition: service_healthy
-      movie-service:
-        condition: service_healthy
-      serie-service:
-        condition: service_healthy
-      catalog-service:
-        condition: service_healthy
 
   # Microservicio de Trazas
   zipkin-server:
@@ -211,9 +123,6 @@ services: # Servicios que se van a ejecutar
       - backendnetwork
     environment:
       RABBIT_ADDRESSES: rabbitmq:5672
-    depends_on:
-      rabbitmq:
-        condition: service_started
 
 
 # Configuración de red interna

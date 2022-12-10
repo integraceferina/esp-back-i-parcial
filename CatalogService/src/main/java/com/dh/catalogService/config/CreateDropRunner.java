@@ -1,6 +1,6 @@
 package com.dh.catalogService.config;
 
-import com.dh.catalog.repository.CatalogRepository;
+import com.dh.catalogService.repository.CatalogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
