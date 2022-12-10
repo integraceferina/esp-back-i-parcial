@@ -6,7 +6,7 @@ EXPOSE 8761
 
 RUN apk add --update --no-cache curl
 
-ADD ./target/EurekaServer-0.0.1-SNAPSHOT.jar eureka-server.jar
+ADD ./target/eurekaServer-0.0.1-SNAPSHOT.jar eureka-server.jar
 
 ENTRYPOINT ["java", "-jar", "/eureka-server.jar"]
 
