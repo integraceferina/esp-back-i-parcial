@@ -5,17 +5,10 @@ spring:
     name: api-movie
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://mysql-contenedor:3306/movie-dev
+    url: jdbc:mysql://localhost:3306/movie-dev
     username: usr-movie
     password: pwd-movie
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
-
-eureka:
-   client:
-      registerWithEureka: true
-      fetchRegistry: false
-      serviceURL:
-         defaultZone: http://localhost:8761/eureka
