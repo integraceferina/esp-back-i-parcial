@@ -5,7 +5,7 @@ spring:
     name: api-catalog
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://mysql-contenedor:3306/movie-dev
+    url: jdbc:mysql://localhost:3306/movie-dev
     username: usr-catalog
     password: pwd-catalog
   jpa:
