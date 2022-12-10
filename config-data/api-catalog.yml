@@ -3,11 +3,19 @@ server:
 spring:
   application:
     name: api-catalog
-
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://mysql-contenedor:3306/movie-dev
+    username: usr-catalog
+    password: pwd-catalog
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
 
   eureka:
    client:
       registerWithEureka: true
       fetchRegistry: true
       serviceURL:
-         defaultZone: http://localhost:8761/eureka
+         defaultZone: http://eureka-server:8761/eureka

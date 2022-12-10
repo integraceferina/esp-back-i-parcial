@@ -1,11 +1,11 @@
 server:
-  port: ${PORT:${SERVER_PORT:0}}
+  port: ${PORT:${SERVER_PORT:9001}}
 spring:
   application:
     name: api-movie
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/movie-dev
+    url: jdbc:mysql://mysql-contenedor:3306/movie-dev
     username: usr-movie
     password: pwd-movie
   jpa:
@@ -18,4 +18,4 @@ eureka:
       registerWithEureka: true
       fetchRegistry: false
       serviceURL:
-         defaultZone: http://localhost:8761/eureka
+         defaultZone: http://eureka-server:8761/eureka
