@@ -5,10 +5,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/integraceferina/esp-back-i-parcial
-          default-label: develop
-          force-pull: true
-          search-paths: config-data
+          uri: https://github.com/integraceferina/PublicConfigRepo
+
+          default-label: main
 
 server:
   port: ${PORT:8888}
