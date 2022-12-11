@@ -1,75 +1,34 @@
 server:
-  port: 8090
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-server:8761/eureka/
-
-resilience4j:
-  circuitbreaker:
-    configs:
-      default:
-        sliding-window-size: 10
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
-        permitted-number-of-calls-in-half-open-state: 5
-        slow-call-rate-threshold: 50
-        slow-call-duration-threshold: 5s
-    instances:
-      breaker-backend:
-        base-config: default
+  port: 8080
 
 spring:
   cloud:
     gateway:
-      default-filters:
-        - CountRequestsFilter
-        - LogFilter
       routes:
         - id: movie-service
           uri: lb://movie-service
           predicates:
-            - Path=/movies/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: breaker-backend
-                fallbackUri: forward:/movies/fallback
-        - id: serie-service
-          uri: lb://serie-service
-          predicates:
-            - Path=/series/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: breaker-backend
-                fallbackUri: forward:/series/fallback
+            - Path=/movie/**
         - id: catalog-service
           uri: lb://catalog-service
           predicates:
-            - Path=/catalogs/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: breaker-backend
-                fallbackUri: forward:/catalogs/fallback
-        - id: user-service
-          uri: lb://user-service
+            - Path=/catalog/**
+        - id: serie-service
+          uri: lb://serie-service
           predicates:
-            - Path=/users/**
-        - id: oauth-service
-          uri: lb://oauth-service
-          predicates:
-            - Path=/security/**
-          filters:
-            - StripPrefix=1
+            - Path=/serie/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 
-config:
-  security:
-    oauth:
-      client:
-        id: backend-specialization
-        secret: backend-dh
-      jwt:
-        key: it-s-dangerous-to-go-alone-take-this
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
