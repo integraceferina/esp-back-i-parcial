@@ -8,7 +8,7 @@ spring:
           uri: https://github.com/integraceferina/esp-back-i-parcial
           default-label: develop
           force-pull: true
-          search-paths: config
+          search-paths: config-data
 
 server:
   port: ${PORT:8888}
